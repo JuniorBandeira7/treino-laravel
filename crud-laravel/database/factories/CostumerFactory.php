@@ -19,7 +19,7 @@ class CostumerFactory extends Factory
         return [
             "name" => $this->faker->name(),
             "email" => $this->faker->safeEmail(),
-            "apelido" => $this->faker->country(),
+            "country" => $this->faker->country(),
         ];
     }
 }

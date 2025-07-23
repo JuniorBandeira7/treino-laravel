@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Costumer;
 use Illuminate\Auth\Events\Registered;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Exception;
 
 class UserController extends Controller
@@ -17,11 +19,23 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $data = $request->validated();
+        $data = $request->validate([
+            "email" => 'required|email|max:255',
+            "password" => "required|min:6"
+        ]);
 
-        //$user = User::create($data);
-        //salvar session (gerar jwt)
-        return redirect()->route("/")->with("success", "logado");
+        if (!$user = User::where('email', $data['email'])->first()){
+            return redirect()->back()->with("error", "credenciais incorretas");
+        }
+
+        if (Hash::check($data['password'], $user->password)) {
+            Session::put('user_id', $user->id);
+        } else {
+            return redirect()->back()->with("error", "credenciais incorretas");
+        }
+
+        //dd(session()->all());
+        return redirect()->route("costumers")->with("success", "logado");
     }
 
     public function registerView()
@@ -51,13 +65,23 @@ class UserController extends Controller
             return response()->json(['error' => 'Erro ao criar usuário.', 'details' => $e->getMessage()], 500);
         }
 
-        return redirect(route("welcome"))->with("success", "Usuário cadastrado com sucesso!");
+        return redirect(route("costumers"))->with("success", "Usuário cadastrado com sucesso!");
     }
 
     public function dashboard()
     {
+        if (!session()->has('user_id')) {
+            return redirect()->route('login');
+        }
+        
         $costumers = Costumer::paginate(5);
 
         return view("costumers.costumers", ["costumers" => $costumers]);
+    }
+
+    public function logout(){
+        Session::flush();
+
+        return redirect(route("loginView"));
     }
 }

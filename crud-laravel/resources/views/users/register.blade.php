@@ -1,25 +1,25 @@
 <x-app>
     <div class="flex items-center w-full justify-center min-h-screen">
-        <form method="POST" class="max-w-sm mx-auto bg-gray-400 dark:bg-gray-800 p-8 rounded-4xl" action="{{ route("register") }}">
+        <form method="POST" class="max-w-sm mx-auto bg-gray-400 dark:bg-gray-800 p-20 rounded-4xl shadow" action="{{ route("register") }}">
             @csrf
-            <div class="w-full flex justify-center mb-8">
-                <h2>Cadastrar</h2>
+            <div class="w-full flex justify-center mb-16">
+                <h2 class="text-xl">Cadastrar</h2>
             </div>
-            <div class="mb-5">
+            <div class="mb-5 flex items-center flex-col mt-4">
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
                 <input type="text" name="name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@flowbite.com" required />
             </div>
-            <div class="mb-5">
+            <div class="mb-5 flex items-center flex-col mt-4">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                 <input type="email" name="email"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@flowbite.com" required />
             </div>
-            <div class="mb-5">
+            <div class="mb-5 flex items-center flex-col mt-4">
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha</label>
-                <input type="password" name="password" 
+                <input type="password" name="password"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required />
             </div>

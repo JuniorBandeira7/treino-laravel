@@ -15,7 +15,7 @@
                             Email
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Data de nascimento
+                            Nacionalidade
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Ações
@@ -24,26 +24,30 @@
                 </thead>
                 <tbody>
                     @foreach ($costumers as $costumer)
-                        <tr
-                            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $costumer->name }}
-                            </th>
-                            <td class="px-6 py-4">
-                                {{ $costumer->email }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $costumer->country }}
-                            </td>
-                            <td class="px-6 py-4">
-                                <a href="{{ route('costumer.edit', $costumer->id)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline ml-4">Remover</a>
-                            </td>
-                        </tr>
+                    <tr
+                        class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $costumer->name }}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ $costumer->email }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $costumer->country }}
+                        </td>
+                        <td class="px-6 py-4 flex gap-4">
+                            <a href="{{ route('costumer.edit', $costumer->id)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                            <form action="{{ route('costumer.destroy', $costumer->id) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer">Deletar</button>
+                            </form>
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
-            
+
         </div>
         <div class="mt-8 flex justify-between">
             {{ $costumers->links() }}
